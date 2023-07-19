@@ -11,6 +11,36 @@
                             alt="{{ .Site.Title }}">
                     </a>
 
+                    <div class="d-md-none" style="flex: 1;display: flex;">
+                        {{ range .Site.Data.headers }}
+                        {{ if .mobile }}
+                        {{ if .list }}
+                        <div class="mobile-navbar" style="margin-right: 2rem;position: relative;">
+                            <div class="title">{{ .item }}</div>
+                            <div class="content" style="display: none;position: absolute; background-color: #fff;border-radius: 0.2rem;text-align: center;left: 50%;transform: translateX(-50%);top: 2rem;border: solid 0.01rem #eee;">
+                                {{ range .list }}
+                                <a href="{{ .url }}" style="display: block;padding: 0.4rem 1rem;white-space: nowrap;">{{ .name }}</a>
+                                {{ end }}
+                            </div>
+                        </div>
+                        {{ else }}
+                        <a href="{{ .link }}" style="margin-right: 2rem;color: #fff">{{ .item }}</a>
+                        {{ end }}
+                        {{ end }}
+                        {{ end }}
+                        <script>
+                            (function() {
+                                const el = document.querySelectorAll('.mobile-navbar')
+                                el.forEach(e => {
+                                    const [title, content] = e.children
+                                    title.addEventListener('click', () => {
+                                        content.style.display = content.style.display === 'none' ? 'block' : 'none'
+                                    })
+                                })
+                            })()
+                        </script>
+                    </div>
+
                     <div class="collapse navbar-collapse order-2 order-md-1">
                         <div class="header-mini-btn">
                             <label>
